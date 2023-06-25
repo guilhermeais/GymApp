@@ -11,21 +11,56 @@ export type InputPasswordProps = TextInput['props'] & {
 export function InputPassword(props: InputPasswordProps) {
   const {label, hasError, errorMessage, ...inputProps} = props;
   const [showPassword, setShowPassword] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+
+  const inputStyles = [
+    'flex-1',
+    'bg-gray-50',
+    'text-gray-900',
+    'text-sm',
+    'rounded-full',
+    'p-2.5',
+    'dark:bg-gray-700',
+    'dark:text-white',
+    hasError ? 'border-red-500' : 'border-gray-300',
+    isFocused ? 'ring-green-500' : 'border-gray-300',
+    hasError && isFocused ? 'ring-red-500' : '',
+  ].join(' ');
+
+  const viewStyles = [
+    'flex-row',
+    'items-center',
+    'border',
+    'rounded-full',
+    hasError ? 'border-red-600' : 'border-gray-300',
+    isFocused ? 'ring-green-500' : 'border-gray-300',
+    hasError ? 'border-red-600' : '',
+  ].join(' ');
 
   return (
     <View>
       <Text className="block mb-2 text-sm font-medium text-gray-900 dar:text-white">
         {label}
       </Text>
-      <View className="flex-row items-center border border-gray-300  rounded-full">
+      <View className={viewStyles}>
         <TextInput
           secureTextEntry={!showPassword}
           {...inputProps}
-          className={`flex-1 bg-gray-50 text-gray-900 text-sm rounded-full focus:ring-green-500 focus:border-green-500 p-2.5 dark:bg-gray-700 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500`}
+          className={inputStyles}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         />
         <TouchableOpacity onPress={togglePasswordVisibility} className="p-2">
           {showPassword ? (
