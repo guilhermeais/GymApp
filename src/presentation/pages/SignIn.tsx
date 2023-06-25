@@ -5,6 +5,7 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import Input from '../components/Input';
 import TextWithSeparator from '../components/TextWithSeparator';
@@ -16,6 +17,7 @@ import {Password} from '../../domain/entities/password';
 
 function SignIn(): JSX.Element {
   const [hasStartedEditingEmail, setHasStartedEditingEmail] = useState(false);
+  const [loginLoading, setLoginLoading] = useState(false);
   const [hasStartedEditingPassword, setHasStartedEditingPassword] =
     useState(false);
 
@@ -23,11 +25,19 @@ function SignIn(): JSX.Element {
     email: new Email(''),
     password: new Password(''),
   });
+  const userCanLogin = loginData.email.isValid && loginData.password.isValid;
   const loginUseCase = makeLoginUseCase();
 
   const handleLoginPress = async () => {
-    const result = await loginUseCase.execute(loginData);
-    console.log(result);
+    setHasStartedEditingEmail(true);
+    setHasStartedEditingPassword(true);
+    if (!userCanLogin) return;
+    try {
+      setLoginLoading(true);
+      await loginUseCase.execute(loginData);
+    } finally {
+      setLoginLoading(false);
+    }
   };
 
   const handleEmailChange = (email: string) => {
@@ -47,6 +57,14 @@ function SignIn(): JSX.Element {
 
     setLoginData(prevState => ({...prevState, password: loginData.password}));
   };
+
+  const loginButtonStyle = [
+    userCanLogin ? 'bg-green-500' : 'bg-gray-400',
+    'rounded-full',
+    'py-3',
+    'px-6',
+    'items-center',
+  ].join(' ');
 
   return (
     <SafeAreaView className="flex-1 p-4 bg-gray-100">
@@ -96,9 +114,18 @@ function SignIn(): JSX.Element {
 
         <View className="mb-10">
           <TouchableOpacity
-            className="bg-green-500 rounded-full py-3 px-6 items-center"
+            disabled={!userCanLogin}
+            className={loginButtonStyle}
             onPress={handleLoginPress}>
-            <Text className="text-white font-semibold text-lg">Entrar</Text>
+            {loginLoading ? (
+              <ActivityIndicator
+                size="small"
+                color="white"
+                style={{marginRight: 5}}
+              />
+            ) : (
+              <Text className="text-white font-semibold text-lg">Entrar</Text>
+            )}
           </TouchableOpacity>
 
           <TextWithSeparator>Ou</TextWithSeparator>
