@@ -23,6 +23,28 @@ export class Password {
     };
   }
 
+  get errorMessages(): string[] {
+    const errors: string[] = [];
+
+    if (!this.validationObject.isLengthCorrect) {
+      errors.push('Senha deve conter ao menos 8 carácteres.');
+    }
+
+    if (!this.validationObject.hasUpperCase) {
+      errors.push('Senha deve conter ao menos uma letra maiúscula.');
+    }
+
+    if (!this.validationObject.hasLowerCase) {
+      errors.push('Senha deve conter ao menos uma letra minúscula.');
+    }
+
+    if (!this.validationObject.hasNumber) {
+      errors.push('Senha deve conter ao menos um número.');
+    }
+
+    return errors;
+  }
+
   get value(): string {
     return this.password;
   }
