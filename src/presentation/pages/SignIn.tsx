@@ -14,33 +14,10 @@ import {Email} from '../../domain/entities/email';
 import {InputPassword} from '../components/InputPassword';
 import {Password} from '../../domain/entities/password';
 
-function SignUp(): JSX.Element {
+function SignIn(): JSX.Element {
   const [hasStartedEditingEmail, setHasStartedEditingEmail] = useState(false);
   const [hasStartedEditingPassword, setHasStartedEditingPassword] =
     useState(false);
-
-  function getPasswordMessageError(): string[] {
-    const errors: string[] = [];
-    const {validationObject} = loginData.password;
-
-    if (!validationObject.isLengthCorrect) {
-      errors.push('- Senha deve conter ao menos 8 carácteres.');
-    }
-
-    if (!validationObject.hasUpperCase) {
-      errors.push('- Senha deve conter ao menos uma letra maiúscula.');
-    }
-
-    if (!validationObject.hasLowerCase) {
-      errors.push('- Senha deve conter ao menos uma letra minúscula.');
-    }
-
-    if (!validationObject.hasNumber) {
-      errors.push('- Senha deve conter ao menos um número.');
-    }
-
-    return errors;
-  }
 
   const [loginData, setLoginData] = useState<Login.Params>({
     email: new Email(''),
@@ -108,7 +85,9 @@ function SignUp(): JSX.Element {
                   hasError={
                     hasStartedEditingPassword && !loginData.password.isValid
                   }
-                  errorMessage={getPasswordMessageError().join('\n')}
+                  errorMessage={loginData.password.errorMessages
+                    .map(message => `- ${message}`)
+                    .join('\n')}
                 />
               </View>
             </View>
@@ -135,4 +114,4 @@ function SignUp(): JSX.Element {
   );
 }
 
-export default SignUp;
+export default SignIn;
