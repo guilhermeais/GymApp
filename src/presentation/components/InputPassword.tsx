@@ -64,9 +64,9 @@ export function InputPassword(props: InputPasswordProps) {
         />
         <TouchableOpacity onPress={togglePasswordVisibility} className="p-2">
           {showPassword ? (
-            <EyeSlashIcon size={20} color="gray" />
-          ) : (
             <EyeIcon size={20} color="black" />
+          ) : (
+            <EyeSlashIcon size={20} color="gray" />
           )}
         </TouchableOpacity>
       </View>
