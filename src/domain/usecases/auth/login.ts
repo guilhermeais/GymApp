@@ -3,11 +3,13 @@ import {Password} from '../../entities/password';
 import {User} from '../../entities/user';
 import {LoginGateway} from '../../protocols/gateways/auth-gateway';
 import {SetAuthTokenRepository} from '../../protocols/repositories/user-repositoriy';
+import {UserState} from '../../protocols/state/user.state';
 
 export class Login {
   constructor(
     private readonly authGateway: LoginGateway,
     private readonly tokenStorage: SetAuthTokenRepository,
+    private readonly userState: UserState,
   ) {}
 
   async execute(params: Login.Params): Promise<Login.Result> {
@@ -16,7 +18,12 @@ export class Login {
       password: params.password.value,
     });
 
-    await this.tokenStorage.setAuthToken(authToken);
+    await this.tokenStorage.setAuthToken({
+      token: authToken,
+      user,
+    });
+
+    this.userState.setLoggedUser(user.toJSON());
     return {
       authToken,
       user,

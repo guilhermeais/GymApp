@@ -1,3 +1,5 @@
+import {User} from '../../entities/user';
+
 export interface SetAuthTokenRepository {
   setAuthToken(
     params: SetAuthTokenRepository.Params,
@@ -5,6 +7,9 @@ export interface SetAuthTokenRepository {
 }
 
 export namespace SetAuthTokenRepository {
-  export type Params = string;
+  export type Params = {
+    token: string;
+    user: User;
+  };
   export type Result = void;
 }
