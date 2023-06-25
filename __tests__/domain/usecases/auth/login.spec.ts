@@ -6,11 +6,13 @@ import {faker} from '@faker-js/faker';
 import {correctUserTrainerAdmin} from '../../../__mocks__/user.mock';
 import {Email} from '../../../../src/domain/entities/email';
 import {Password} from '../../../../src/domain/entities/password';
+import {UserState} from '../../../../src/domain/protocols/state/user.state';
 
 describe('Login', () => {
   let sut: Login;
   let authGateway: MockProxy<LoginGateway>;
   let tokenStorage: MockProxy<SetAuthTokenRepository>;
+  let userState: MockProxy<UserState>;
   let authToken: string;
 
   beforeEach(() => {
@@ -22,8 +24,9 @@ describe('Login', () => {
       }),
     });
     tokenStorage = mock<SetAuthTokenRepository>();
+    userState = mock<UserState>();
 
-    sut = new Login(authGateway, tokenStorage);
+    sut = new Login(authGateway, tokenStorage, userState);
   });
 
   test('should return the user and accessToken on success', async () => {
@@ -39,7 +42,13 @@ describe('Login', () => {
       password: params.password.value,
     });
 
-    expect(tokenStorage.setAuthToken).toHaveBeenCalledWith(authToken);
+    expect(tokenStorage.setAuthToken).toHaveBeenCalledWith({
+      token: authToken,
+      user: correctUserTrainerAdmin,
+    });
+    expect(userState.setLoggedUser).toHaveBeenCalledWith(
+      correctUserTrainerAdmin.toJSON(),
+    );
 
     expect(result.user).toEqual(correctUserTrainerAdmin);
     expect(result.authToken).toEqual(authToken);
