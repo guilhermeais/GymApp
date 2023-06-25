@@ -1,4 +1,23 @@
 {
-  "name": "GymApp",
-  "displayName": "GymApp"
+  "expo": {
+    "name": "GymApp",
+    "slug": "GymApp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.guilhermeais.gymapp"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0b7fd12f-cdea-4958-89cb-3653d944d2a9"
+      }
+    }
+  }
 }

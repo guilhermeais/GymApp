@@ -72,7 +72,7 @@ function SignUp(): JSX.Element {
   };
 
   return (
-    <SafeAreaView className="flex-1 px-4 bg-gray-100">
+    <SafeAreaView className="flex-1 p-4 bg-gray-100">
       <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View className="items-center pt-4">
           <Text className="text-4xl text-black font-semibold">
