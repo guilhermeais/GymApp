@@ -8,36 +8,55 @@ describe('Password', () => {
 
   test('should give details of the invalid password when password has no upper case', () => {
     const invalidPassword = 'nouppercase';
-    expect(new Password(invalidPassword).validationObject.hasUpperCase).toEqual(
-      false,
-    );
+    const password = new Password(invalidPassword);
+    expect(password.validationObject.hasUpperCase).toEqual(false);
   });
 
   test('should give details of the invalid password when password has no lower case', () => {
     const invalidPassword = 'NOWLOWERCASE';
-    expect(new Password(invalidPassword).validationObject.hasLowerCase).toEqual(
-      false,
+    const password = new Password(invalidPassword);
+    expect(password.validationObject.hasLowerCase).toEqual(false);
+    expect(password.errorMessages).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining(
+          'Senha deve conter ao menos uma letra minúscula.',
+        ),
+      ]),
     );
   });
 
   test('should give details of the invalid password when password has no number', () => {
     const invalidPassword = 'noNumber';
-    expect(new Password(invalidPassword).validationObject.hasNumber).toEqual(
-      false,
+    const password = new Password(invalidPassword);
+    expect(password.validationObject.hasNumber).toEqual(false);
+    expect(password.errorMessages).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining('Senha deve conter ao menos um número.'),
+      ]),
     );
   });
 
   test('should give details of the invalid password when password has invalid length', () => {
     const invalidPassword = 'a';
-    expect(
-      new Password(invalidPassword).validationObject.isLengthCorrect,
-    ).toEqual(false);
+    const password = new Password(invalidPassword);
+    expect(password.validationObject.isLengthCorrect).toEqual(false);
+    expect(password.errorMessages).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining('Senha deve conter ao menos 8 carácteres.'),
+      ]),
+    );
   });
 
   test('should give details of the invalid password when password has no upperCase', () => {
-    const invalidPassword = 'NOWLOWERCASE';
-    expect(new Password(invalidPassword).validationObject.hasLowerCase).toEqual(
-      false,
+    const invalidPassword = 'nouppercase';
+    const password = new Password(invalidPassword);
+    expect(password.validationObject.hasUpperCase).toEqual(false);
+    expect(password.errorMessages).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining(
+          'Senha deve conter ao menos uma letra maiúscula.',
+        ),
+      ]),
     );
   });
 
