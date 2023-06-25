@@ -1,4 +1,4 @@
-import { registerRootComponent } from 'expo'
-import App from './router/router'
+import {registerRootComponent} from 'expo';
+import App from './router/router';
 
-export default registerRootComponent(App)
+export default registerRootComponent(App);
