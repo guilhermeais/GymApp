@@ -9,6 +9,7 @@ async function sleep(interval: number) {
 export class FakeAuthGateway implements LoginGateway {
   async login(_params: LoginGateway.Params): Promise<LoginGateway.Result> {
     await sleep(700);
+
     return {
       authToken: 'fake-auth-token',
       user: User.create({

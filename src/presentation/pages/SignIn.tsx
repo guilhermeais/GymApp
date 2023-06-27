@@ -9,24 +9,25 @@ import {
 } from 'react-native';
 import Input from '../components/Input';
 import TextWithSeparator from '../components/TextWithSeparator';
-import {makeLoginUseCase} from '../../main/factories/domain/usecases/auth';
 import {Login} from '../../domain/usecases/auth/login';
 import {Email} from '../../domain/entities/email';
 import {InputPassword} from '../components/InputPassword';
 import {Password} from '../../domain/entities/password';
-
-function SignIn(): JSX.Element {
+import {useNavigation} from '@react-navigation/native';
+type Props = {
+  login: Login;
+};
+function SignIn({login}: Props): JSX.Element {
   const [hasStartedEditingEmail, setHasStartedEditingEmail] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
   const [hasStartedEditingPassword, setHasStartedEditingPassword] =
     useState(false);
-
+  const navigation = useNavigation();
   const [loginData, setLoginData] = useState<Login.Params>({
     email: new Email(''),
     password: new Password(''),
   });
   const userCanLogin = loginData.email.isValid && loginData.password.isValid;
-  const loginUseCase = makeLoginUseCase();
 
   const handleLoginPress = async () => {
     setHasStartedEditingEmail(true);
@@ -34,7 +35,8 @@ function SignIn(): JSX.Element {
     if (!userCanLogin) return;
     try {
       setLoginLoading(true);
-      await loginUseCase.execute(loginData);
+      await login.execute(loginData);
+      navigation.navigate('Home' as never);
     } finally {
       setLoginLoading(false);
     }

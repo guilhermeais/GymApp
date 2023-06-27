@@ -11,6 +11,10 @@ export class User {
     return new User(user);
   }
 
+  get name() {
+    return this.props.name;
+  }
+
   toJSON(): UserProps {
     return {
       ...this.props,
