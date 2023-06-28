@@ -9,7 +9,7 @@ export default function Router() {
     <RecoilRoot>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
-          <Stack.Screen name="SignIn" component={makeSignInPage()} />
+          {/* <Stack.Screen name="SignIn" component={makeSignInPage()} /> */}
           <Stack.Screen name="Home" component={makeHomePage()} />
         </Stack.Navigator>
       </NavigationContainer>
