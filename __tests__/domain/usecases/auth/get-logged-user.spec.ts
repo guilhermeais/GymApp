@@ -8,22 +8,21 @@ describe('GetLoggedUser', () => {
   let userState: MockProxy<UserState>;
 
   beforeEach(() => {
-    userState = mock<UserState>({
-      getLoggedUser: () => correctUserTrainerAdmin,
-    });
+    userState = mock<UserState>();
+    userState.getLoggedUser.mockReturnValue(correctUserTrainerAdmin);
 
     sut = new GetLoggedUser(userState);
   });
 
   test('should return the logged user', async () => {
-    const loggedUser = await sut.execute();
+    const loggedUser = sut.execute();
 
     expect(loggedUser).toEqual(correctUserTrainerAdmin);
   });
 
   test('should return null if user is not logged', async () => {
-    const loggedUser = await sut.execute();
     userState.getLoggedUser.mockReturnValueOnce(null);
+    const loggedUser = sut.execute();
     expect(loggedUser).toEqual(null);
   });
 });
