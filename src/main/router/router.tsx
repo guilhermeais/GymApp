@@ -1,7 +1,7 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {RecoilRoot} from 'recoil';
-import {makeHomePage} from '../factories/pages';
+import {makeHomePage, makeSignInPage} from '../factories/pages';
 const Stack = createNativeStackNavigator();
 
 export default function Router() {
@@ -9,7 +9,7 @@ export default function Router() {
     <RecoilRoot>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
-          {/* <Stack.Screen name="SignIn" component={makeSignInPage()} /> */}
+          <Stack.Screen name="SignIn" component={makeSignInPage()} />
           <Stack.Screen name="Home" component={makeHomePage()} />
         </Stack.Navigator>
       </NavigationContainer>

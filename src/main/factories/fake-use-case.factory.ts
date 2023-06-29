@@ -3,7 +3,7 @@ import {Login} from '../../domain/usecases/auth/login';
 import {GetTodayTrainingSheets} from '../../domain/usecases/gym/get-today-training-sheets';
 import {FakeAuthGateway} from '../../infra/gateways/auth-gateway';
 import {FakeGymGateway} from '../../infra/gateways/gym-gateway';
-import {AsyncStorageUserRepo} from '../../infra/repositories/user-repository/async-storage-user-repo';
+import {AsyncStorageUserRepo} from '../../infra/cache/user-cache/async-storage-user-cache';
 import {AdaptRecoilUserState} from '../../infra/state/recoil/user-state.adapter';
 import {UseCaseFactory} from './protocols/use-case.factory';
 

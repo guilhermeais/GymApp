@@ -17,8 +17,8 @@ type Props = {
 
 export default function Home({useCaseFactory}: Props) {
   return (
-    <SafeAreaView className="flex-1 py-4  bg-gray-100">
-      <View className="p-4 pt-8 bg-white">
+    <SafeAreaView className="flex-1 py-4 bg-gray-100">
+      <View className=" p-4 pt-8 bg-white">
         <View className="flex-row items-center space-x-14">
           <Bars3Icon size={35} color="black" className="mr-4" />
 

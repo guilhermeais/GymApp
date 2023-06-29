@@ -1,5 +1,5 @@
 import {LoginGateway} from '../../../../src/domain/protocols/gateways/auth-gateway';
-import {SetAuthTokenRepository} from '../../../../src/domain/protocols/repositories/user-repositoriy';
+import {SetAuthToken} from '../../../../src/domain/protocols/cache/user-cache';
 import {Login} from '../../../../src/domain/usecases/auth/login';
 import {MockProxy, mock} from 'jest-mock-extended';
 import {faker} from '@faker-js/faker';
@@ -11,7 +11,7 @@ import {UserState} from '../../../../src/domain/protocols/state/user.state';
 describe('Login', () => {
   let sut: Login;
   let authGateway: MockProxy<LoginGateway>;
-  let tokenStorage: MockProxy<SetAuthTokenRepository>;
+  let tokenStorage: MockProxy<SetAuthToken>;
   let userState: MockProxy<UserState>;
   let authToken: string;
 
@@ -23,7 +23,7 @@ describe('Login', () => {
         user: correctUserTrainerAdmin,
       }),
     });
-    tokenStorage = mock<SetAuthTokenRepository>();
+    tokenStorage = mock<SetAuthToken>();
     userState = mock<UserState>();
 
     sut = new Login(authGateway, tokenStorage, userState);

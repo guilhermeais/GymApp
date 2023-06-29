@@ -2,13 +2,13 @@ import {Email} from '../../entities/email';
 import {Password} from '../../entities/password';
 import {User} from '../../entities/user';
 import {LoginGateway} from '../../protocols/gateways/auth-gateway';
-import {SetAuthTokenRepository} from '../../protocols/repositories/user-repositoriy';
+import {SetAuthToken} from '../../protocols/cache/user-cache';
 import {UserState} from '../../protocols/state/user.state';
 
 export class Login {
   constructor(
     private readonly authGateway: LoginGateway,
-    private readonly tokenStorage: SetAuthTokenRepository,
+    private readonly userCache: SetAuthToken,
     private readonly userState: UserState,
   ) {}
 
@@ -18,7 +18,7 @@ export class Login {
       password: params.password.value,
     });
 
-    await this.tokenStorage.setAuthToken({
+    await this.userCache.setAuthToken({
       token: authToken,
       user,
     });

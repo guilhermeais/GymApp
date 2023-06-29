@@ -17,6 +17,17 @@ describe('GetTodayTrainingSheets', () => {
   test('should return all training sheets of today', async () => {
     const result = await sut.execute();
 
-    expect(result).toEqual([correctTrainingSheet]);
+    expect(result).toEqual([
+      {
+        id: correctTrainingSheet.id,
+        student: {
+          id: correctTrainingSheet.student.id,
+          name: correctTrainingSheet.student.name,
+          paymentStatus: correctTrainingSheet.student.paymentStatus.status,
+          unpaidDays: correctTrainingSheet.student.paymentStatus.unpaidDays,
+        },
+        todayWorkout: correctTrainingSheet.todayWorkout,
+      },
+    ]);
   });
 });

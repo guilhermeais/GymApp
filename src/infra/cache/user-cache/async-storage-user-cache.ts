@@ -1,8 +1,8 @@
-import {SetAuthTokenRepository} from '../../../domain/protocols/repositories/user-repositoriy';
+import {SetAuthToken} from '../../../domain/protocols/cache/user-cache';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export class AsyncStorageUserRepo implements SetAuthTokenRepository {
-  async setAuthToken(params: SetAuthTokenRepository.Params): Promise<void> {
+export class AsyncStorageUserRepo implements SetAuthToken {
+  async setAuthToken(params: SetAuthToken.Params): Promise<void> {
     await AsyncStorage.setItem(
       'logged-user',
       JSON.stringify({
