@@ -1,7 +1,7 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {RecoilRoot} from 'recoil';
-import {makeSignInPage, makeHomePage} from '../factories/pages';
+import {makeHomePage} from '../factories/pages';
 const Stack = createNativeStackNavigator();
 
 export default function Router() {

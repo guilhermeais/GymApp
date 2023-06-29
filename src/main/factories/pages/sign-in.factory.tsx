@@ -1,6 +1,6 @@
 import SignIn from '../../../presentation/pages/SignIn';
-import {makeLoginUseCase} from '../domain/usecases/auth';
+import {FakeUseCaseFactory} from '../fake-use-case.factory';
 
 export function makeSignInPage() {
-  return () => <SignIn login={makeLoginUseCase()} />;
+  return () => <SignIn useCaseFactory={new FakeUseCaseFactory()} />;
 }

@@ -14,10 +14,12 @@ import {Email} from '../../domain/entities/email';
 import {InputPassword} from '../components/InputPassword';
 import {Password} from '../../domain/entities/password';
 import {useNavigation} from '@react-navigation/native';
+import {UseCaseFactory} from '../../main/factories/protocols/use-case.factory';
 type Props = {
-  login: Login;
+  useCaseFactory: UseCaseFactory;
 };
-function SignIn({login}: Props): JSX.Element {
+function SignIn({useCaseFactory}: Props): JSX.Element {
+  const login = useCaseFactory.createLogin();
   const [hasStartedEditingEmail, setHasStartedEditingEmail] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
   const [hasStartedEditingPassword, setHasStartedEditingPassword] =

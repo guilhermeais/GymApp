@@ -1,142 +1,21 @@
 /* eslint-disable react/react-in-jsx-scope */
-import {GetLoggedUser} from '../../domain/usecases/auth/get-logged-user';
 import {
   Text,
   SafeAreaView,
   View,
   TouchableOpacity,
   ScrollView,
-  FlatList,
 } from 'react-native';
 import {Bars3Icon, PlusIcon} from 'react-native-heroicons/outline';
-import {
-  CheckIcon,
-  ClockIcon,
-  ExclamationTriangleIcon,
-} from 'react-native-heroicons/mini';
-import {
-  UserIcon,
-  ClipboardDocumentListIcon,
-  BanknotesIcon,
-} from 'react-native-heroicons/solid';
 import MemoThumb from '../components/MemoThumb';
-import MostAccessedButton from '../components/MostAccessedButton';
+import TrainingSheet from '../components/TrainingSheet';
+import {UseCaseFactory} from '../../main/factories/protocols/use-case.factory';
+import MoreAccessedPages from '../components/MoreAccessedPages';
 type Props = {
-  getLoggedUser: GetLoggedUser;
+  useCaseFactory: UseCaseFactory;
 };
 
-const data: {
-  name: string;
-  train: string;
-  payStatus: 'PAYED' | 'PENDING' | 'LATE';
-  unpaidDays?: number;
-}[] = [
-  {
-    name: 'Guilherme Teixeira',
-    payStatus: 'PAYED',
-    train: 'Treino de Peito',
-  },
-  {
-    name: 'Pedro Teixeira',
-    payStatus: 'PENDING',
-    train: 'Treino de Peito',
-  },
-  {
-    name: 'Guilherme Teixeira Ais AA',
-    payStatus: 'LATE',
-    unpaidDays: 2,
-    train: 'Treino de Peito',
-  },
-  {
-    name: 'Guilherme Teixeira',
-    payStatus: 'LATE',
-    unpaidDays: 2,
-    train: 'Treino de Peito',
-  },
-  {
-    name: 'Guilherme Teixeira',
-    payStatus: 'LATE',
-    unpaidDays: 2,
-    train: 'Treino de Peito',
-  },
-  {
-    name: 'Guilherme Teixeira',
-    payStatus: 'LATE',
-    unpaidDays: 2,
-    train: 'Treino de Peito',
-  },
-];
-function getIconByStatus(
-  status: 'PAYED' | 'PENDING' | 'LATE',
-  unpaidDays?: number,
-) {
-  if (status === 'PAYED') {
-    return (
-      <View className="items-center">
-        <View className="bg-green-500 rounded-full p-1 ml-2">
-          <CheckIcon size={12} color="white" />
-        </View>
-        <Text className="text-center text-xs tracking-tighter">Em dia</Text>
-      </View>
-    );
-  }
-
-  if (status === 'PENDING') {
-    return (
-      <View className="items-center">
-        <View className="bg-yellow-500 rounded-full p-1 ml-2">
-          <ClockIcon size={12} color="white" />
-        </View>
-        <Text className="text-center text-xs tracking-tighter">Pendente</Text>
-      </View>
-    );
-  }
-
-  if (status === 'LATE') {
-    return (
-      <View className="items-center">
-        <View className="bg-red-500 rounded-full p-1 ml-2">
-          <ExclamationTriangleIcon size={12} color="white" />
-        </View>
-        <Text className="text-center text-xs tracking-tighter">
-          Atrasado há {unpaidDays} dias
-        </Text>
-      </View>
-    );
-  }
-}
-function renderItem({
-  item,
-}: {
-  item: {
-    name: string;
-    train: string;
-    payStatus: 'PAYED' | 'PENDING' | 'LATE';
-    unpaidDays?: number;
-  };
-}) {
-  return (
-    <TouchableOpacity className="bg-gray-200 p-2 rounded-lg flex-1 mb-4">
-      <View className="flex-row justify-between">
-        <View>
-          <View className="flex-row">
-            <Text className="font-semibold">Aluno (a): </Text>
-            <Text>{item.name}</Text>
-          </View>
-          <View className="flex-row">
-            <Text className="font-semibold">Treino: </Text>
-            <Text className="">{item.train} </Text>
-          </View>
-        </View>
-
-        <View>{getIconByStatus(item.payStatus, item.unpaidDays)}</View>
-      </View>
-    </TouchableOpacity>
-  );
-}
-export default function Home({getLoggedUser}: Props) {
-  const loggedUser = getLoggedUser.execute();
-
+export default function Home({useCaseFactory}: Props) {
   return (
     <SafeAreaView className="flex-1 py-4  bg-gray-100">
       <View className="p-4 pt-8 bg-white">
@@ -176,69 +55,16 @@ export default function Home({getLoggedUser}: Props) {
           <Text className="text-xl font-bold">Mais Acessados</Text>
 
           <View className="mt-4">
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{
-                justifyContent: 'space-between',
-              }}>
-              <MostAccessedButton
-                icon={<UserIcon size={28} color="white" />}
-                text={<Text className="font-bold">Alunos</Text>}
-              />
-
-              <MostAccessedButton
-                icon={<ClipboardDocumentListIcon size={28} color="white" />}
-                text={
-                  <View className="flex flex-col items-center">
-                    <Text className="font-bold">Fichas de</Text>
-                    <Text className="font-bold">Treino</Text>
-                  </View>
-                }
-              />
-
-              <MostAccessedButton
-                icon={<BanknotesIcon size={28} color="white" />}
-                text={<Text className="font-bold -inset-5">Mensalidade</Text>}
-              />
-
-              <MostAccessedButton
-                icon={<BanknotesIcon size={28} color="white" />}
-                text={<Text className="font-bold">Treinos</Text>}
-              />
-            </ScrollView>
+            <MoreAccessedPages></MoreAccessedPages>
           </View>
         </View>
 
         <View className="mt-4 flex-1">
           <Text className="text-xl font-bold">Fichas de Hoje</Text>
 
-          <FlatList
-            className="mt-4"
-            contentContainerStyle={{
-              backgroundColor: 'white',
-              padding: 13,
-              borderRadius: 8,
-            }}
-            scrollEnabled
-            data={data}
-            keyExtractor={(item, i) => item.name + '.' + i}
-            renderItem={renderItem}
-            ListEmptyComponent={
-              <View className="flex flex-col items-center justify-center p-4">
-                <Text className="text-xl font-bold mb-4 text-center">
-                  Você ainda não tem nenhuma ficha cadastrada :(
-                </Text>
-                <Text className="text-center mb-4">
-                  Cadastre uma clicando no botão abaixo
-                </Text>
-                <TouchableOpacity className="bg-green-500  rounded-lg px-4 py-2">
-                  <Text className="text-white">Cadastrar Ficha</Text>
-                </TouchableOpacity>
-              </View>
-            }
-          />
+          <View className="mt-4">
+            <TrainingSheet useCaseFactory={useCaseFactory} />
+          </View>
         </View>
       </View>
     </SafeAreaView>

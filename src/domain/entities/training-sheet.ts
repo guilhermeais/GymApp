@@ -8,6 +8,10 @@ export class TrainingSheet {
     this.props = props;
   }
 
+  get id() {
+    return this.props.id;
+  }
+
   get todayWorkout() {
     const actualWeekday = moment(new Date()).format('ddd').toLowerCase();
 

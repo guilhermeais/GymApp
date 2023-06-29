@@ -1,6 +1,6 @@
 import Home from '../../../presentation/pages/Home';
-import {makeGetLoggedUser} from '../domain/usecases/auth';
+import {FakeUseCaseFactory} from '../fake-use-case.factory';
 
 export function makeHomePage() {
-  return () => <Home getLoggedUser={makeGetLoggedUser()} />;
+  return () => <Home useCaseFactory={new FakeUseCaseFactory()} />;
 }
