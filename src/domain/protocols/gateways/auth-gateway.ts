@@ -15,3 +15,19 @@ export namespace LoginGateway {
     user: User;
   };
 }
+
+export interface ValidateUserSessionGateway {
+  validateSession(
+    params: ValidateUserSessionGateway.Params,
+  ): Promise<ValidateUserSessionGateway.Result>;
+}
+
+export namespace ValidateUserSessionGateway {
+  export type Params = {
+    token: string;
+  };
+
+  export type Result = {
+    isValid: boolean;
+  };
+}
