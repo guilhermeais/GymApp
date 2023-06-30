@@ -1,12 +1,32 @@
 import {User} from '../../../domain/entities/user';
-import {LoginGateway} from '../../../domain/protocols/gateways';
+import {
+  LoginGateway,
+  ValidateUserSessionGateway,
+  RevokeTokenGateway,
+} from '../../../domain/protocols/gateways';
 
 async function sleep(interval: number) {
   return new Promise(resolve => {
     setTimeout(resolve, interval);
   });
 }
-export class FakeAuthGateway implements LoginGateway {
+export class FakeAuthGateway
+  implements LoginGateway, ValidateUserSessionGateway, RevokeTokenGateway
+{
+  async revokeToken(_params: string): Promise<void> {
+    await sleep(200);
+  }
+
+  async validateSession(
+    _params: ValidateUserSessionGateway.Params,
+  ): Promise<ValidateUserSessionGateway.Result> {
+    await sleep(700);
+
+    return {
+      isValid: true,
+    };
+  }
+
   async login(_params: LoginGateway.Params): Promise<LoginGateway.Result> {
     await sleep(700);
 

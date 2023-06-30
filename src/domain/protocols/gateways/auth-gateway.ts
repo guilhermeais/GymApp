@@ -31,3 +31,15 @@ export namespace ValidateUserSessionGateway {
     isValid: boolean;
   };
 }
+
+export interface RevokeTokenGateway {
+  revokeToken(
+    params: RevokeTokenGateway.Params,
+  ): Promise<RevokeTokenGateway.Result>;
+}
+
+export namespace RevokeTokenGateway {
+  export type Params = string;
+
+  export type Result = void;
+}

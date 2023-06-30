@@ -25,3 +25,14 @@ export namespace GetAuthToken {
     user: User;
   };
 }
+
+export interface RemoveAuthToken {
+  removeAuthToken(
+    _params: RemoveAuthToken.Params,
+  ): Promise<RemoveAuthToken.Result | null>;
+}
+
+export namespace RemoveAuthToken {
+  export type Params = void;
+  export type Result = void;
+}
