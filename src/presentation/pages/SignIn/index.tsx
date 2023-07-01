@@ -7,13 +7,13 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
-import Input from '../components/Input';
-import TextWithSeparator from '../components/TextWithSeparator';
-import {Login} from '../../domain/usecases/auth/login';
-import {Email} from '../../domain/entities/email';
-import {InputPassword} from '../components/InputPassword';
-import {Password} from '../../domain/entities/password';
-import {UseCaseFactory} from '../../main/factories/protocols/use-case.factory';
+import Input from '../../components/Input';
+import TextWithSeparator from '../../components/TextWithSeparator';
+import {Login} from '../../../domain/usecases/auth/login';
+import {Email} from '../../../domain/entities/email';
+import {InputPassword} from '../../components/InputPassword';
+import {Password} from '../../../domain/entities/password';
+import {UseCaseFactory} from '../../../main/factories/protocols/use-case.factory';
 type Props = {
   useCaseFactory: UseCaseFactory;
 };

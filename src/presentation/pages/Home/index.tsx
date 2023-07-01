@@ -1,9 +1,9 @@
 /* eslint-disable react/react-in-jsx-scope */
 import {Text, SafeAreaView, View} from 'react-native';
-import TrainingSheet from '../components/TrainingSheet';
-import {UseCaseFactory} from '../../main/factories/protocols/use-case.factory';
-import MostAccessedPages from '../components/MostAccessedPages';
-import Memo from '../components/Memo';
+import TrainingSheet from '../../components/TrainingSheet';
+import {UseCaseFactory} from '../../../main/factories/protocols/use-case.factory';
+import MostAccessedPages from '../../components/MostAccessedPages';
+import Memo from '../../components/Memo';
 type Props = {
   useCaseFactory: UseCaseFactory;
 };
