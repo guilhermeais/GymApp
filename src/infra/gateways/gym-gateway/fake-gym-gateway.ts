@@ -3,6 +3,7 @@ import {TrainingSheet} from '../../../domain/entities/training-sheet';
 import {GetTodayTrainingSheetsGateway} from '../../../domain/protocols/gateways';
 import {PaymentStatus} from '../../../domain/entities/payment-status';
 import {PaymentStatusEnum} from '../../../domain/entities/enums/payment-status';
+import moment from 'moment';
 
 const defaultWorkouts = {
   mon: {name: 'Treino de Peito'},
@@ -22,7 +23,11 @@ export class FakeGymGateway implements GetTodayTrainingSheetsGateway {
   async getTodayTrainingSheets(
     _params: void,
   ): Promise<GetTodayTrainingSheetsGateway.Result> {
+    const todayWeek = moment().format('ddd').toLowerCase();
+
     await sleep(550);
+    if (!defaultWorkouts[todayWeek]) return [];
+
     return [
       new TrainingSheet({
         id: faker.string.uuid(),

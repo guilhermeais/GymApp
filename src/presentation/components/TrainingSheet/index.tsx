@@ -63,7 +63,7 @@ export default function TrainingSheet({useCaseFactory: useCaseFactory}: Props) {
       keyExtractor={(_, i) => i.toString()}
       renderItem={({item}) => TrainingSheetItem(item)}
       ListEmptyComponent={
-        !isLoading ? (
+        isLoading ? (
           <View className="items-center">
             <ActivityIndicator size="large" color="black" />
             <Text className="text-2xl">Carregando...</Text>
@@ -71,7 +71,7 @@ export default function TrainingSheet({useCaseFactory: useCaseFactory}: Props) {
         ) : (
           <View className="flex flex-col items-center justify-center p-4">
             <Text className="text-xl font-bold mb-4 text-center">
-              Você ainda não tem nenhuma ficha cadastrada :(
+              Não há nenhuma ficha cadastrada para hoje.
             </Text>
             <Text className="text-center mb-4">
               Cadastre uma clicando no botão abaixo

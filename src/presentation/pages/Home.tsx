@@ -6,11 +6,12 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import {Bars3Icon, PlusIcon} from 'react-native-heroicons/outline';
+import {PlusIcon} from 'react-native-heroicons/outline';
 import MemoThumb from '../components/MemoThumb';
 import TrainingSheet from '../components/TrainingSheet';
 import {UseCaseFactory} from '../../main/factories/protocols/use-case.factory';
 import MoreAccessedPages from '../components/MoreAccessedPages';
+import {Header} from '../components/Header';
 type Props = {
   useCaseFactory: UseCaseFactory;
 };
@@ -18,15 +19,7 @@ type Props = {
 export default function Home({useCaseFactory}: Props) {
   return (
     <SafeAreaView className="flex-1 py-4 bg-gray-100">
-      <View className=" p-4 pt-8 bg-white">
-        <View className="flex-row items-center space-x-14">
-          <Bars3Icon size={35} color="black" className="mr-4" />
-
-          <Text className="text-4xl text-black font-semibold">
-            Gym<Text className="text-green-500">App</Text>
-          </Text>
-        </View>
-      </View>
+      <Header />
 
       <View className="px-4 flex-1">
         <View className="border border-gray-200 rounded-xl mt-5 py-2">

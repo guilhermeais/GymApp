@@ -7,6 +7,8 @@ import PaymentStatus from '../PaymentStatus';
 type Props = GetTodayTrainingSheets.TrainingSheetM;
 
 export default function TrainingSheetItem({todayWorkout, student}: Props) {
+  console.log(todayWorkout);
+  console.log(student);
   return (
     <TouchableOpacity className="bg-gray-200 p-2 rounded-lg flex-1 mb-4">
       <View className="flex-row justify-between">
