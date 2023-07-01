@@ -5,6 +5,7 @@ export type InputProps = TextInput['props'] & {
   label: string;
   hasError?: boolean;
   errorMessage?: string;
+  ref?: any
 };
 
 export default function Input(props: InputProps) {

@@ -13,7 +13,6 @@ import {Login} from '../../domain/usecases/auth/login';
 import {Email} from '../../domain/entities/email';
 import {InputPassword} from '../components/InputPassword';
 import {Password} from '../../domain/entities/password';
-import {useNavigation} from '@react-navigation/native';
 import {UseCaseFactory} from '../../main/factories/protocols/use-case.factory';
 type Props = {
   useCaseFactory: UseCaseFactory;
@@ -24,7 +23,6 @@ function SignIn({useCaseFactory}: Props): JSX.Element {
   const [loginLoading, setLoginLoading] = useState(false);
   const [hasStartedEditingPassword, setHasStartedEditingPassword] =
     useState(false);
-  const navigation = useNavigation();
   const [loginData, setLoginData] = useState<Login.Params>({
     email: new Email(''),
     password: new Password(''),
@@ -38,7 +36,6 @@ function SignIn({useCaseFactory}: Props): JSX.Element {
     try {
       setLoginLoading(true);
       await login.execute(loginData);
-      navigation.navigate('Home' as never);
     } finally {
       setLoginLoading(false);
     }
@@ -86,24 +83,30 @@ function SignIn({useCaseFactory}: Props): JSX.Element {
             <View className="grid gap-5 mb-6 md:grid-cols-2">
               <View>
                 <Input
+                  id="input-email"
                   value={loginData.email.value}
                   onChangeText={handleEmailChange}
                   placeholder="Email"
                   label="Seu email"
+                  onSubmitEditing={() => console.log('sdjfklsdjfr')}
                   hasError={hasStartedEditingEmail && !loginData.email.isValid}
                   errorMessage="Email inválido"
                   autoCapitalize="none"
+                  returnKeyType="next"
+                  blurOnSubmit={false}
                 />
               </View>
 
               <View>
                 <InputPassword
+                  id="input-password"
                   label="Sua senha"
                   value={loginData.password.value}
                   onChangeText={handlePasswordChange}
                   placeholder="Digite sua senha"
                   autoCapitalize="none"
                   keyboardType="default"
+                  onSubmitEditing={handleLoginPress}
                   hasError={
                     hasStartedEditingPassword && !loginData.password.isValid
                   }
@@ -146,3 +149,5 @@ function SignIn({useCaseFactory}: Props): JSX.Element {
 }
 
 export default SignIn;
+
+export const SIGN_SCREEN_IN_NAME = 'SignIn';

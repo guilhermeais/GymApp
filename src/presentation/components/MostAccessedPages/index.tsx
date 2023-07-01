@@ -5,8 +5,11 @@ import {
   ClipboardDocumentListIcon,
   BanknotesIcon,
 } from 'react-native-heroicons/solid';
+import {useNavigation} from '@react-navigation/native';
+import {STUDENT_SCREEN_NAME} from '../../pages/Student';
 
-export default function MoreAccessedPages() {
+export default function MostAccessedPages() {
+  const navigation = useNavigation();
   return (
     <ScrollView
       horizontal
@@ -18,6 +21,7 @@ export default function MoreAccessedPages() {
       <MostAccessedButton
         icon={<UserIcon size={28} color="white" />}
         text={<Text className="font-bold">Alunos</Text>}
+        onPress={() => navigation.navigate(STUDENT_SCREEN_NAME as never)}
       />
 
       <MostAccessedButton

@@ -6,6 +6,7 @@ export type InputPasswordProps = TextInput['props'] & {
   label: string;
   hasError?: boolean;
   errorMessage?: string;
+  ref?: any;
 };
 
 export function InputPassword(props: InputPasswordProps) {

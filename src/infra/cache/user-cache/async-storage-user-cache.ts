@@ -36,7 +36,7 @@ export class AsyncStorageUserRepo
       'logged-user',
       JSON.stringify({
         authToken: params.token,
-        user: JSON.stringify(params.user.toJSON()),
+        user: params.user.toJSON(),
       }),
     );
   }

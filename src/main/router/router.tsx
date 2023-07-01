@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {NavigationContainer} from '@react-navigation/native';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {makeHomePage, makeSignInPage} from '../factories/pages';
 import {useEffect, useState} from 'react';
 import {FakeUseCaseFactory} from '../factories/fake-use-case.factory';
 import {SplashScreen} from '../../presentation/components/SplashScreen';
-const Stack = createNativeStackNavigator();
+import AuthStack from './AuthStack';
+import AppStack from './AppStack';
+
 type Props = {
   useCaseFactory: FakeUseCaseFactory;
 };
@@ -21,7 +20,7 @@ export default function Router({useCaseFactory}: Props) {
     async function fetchUser() {
       setIsLoading(true);
       try {
-        if (loggedUser) {
+        if (loggedUser && isLogged) {
           setIsLogged(true);
           setIsLoading(false);
           return;
@@ -44,13 +43,7 @@ export default function Router({useCaseFactory}: Props) {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        {isLogged ? (
-          <Stack.Screen name="Home" component={makeHomePage()} />
-        ) : (
-          <Stack.Screen name="SignIn" component={makeSignInPage()} />
-        )}
-      </Stack.Navigator>
+      {isLogged ? <AppStack useCaseFactory={useCaseFactory} /> : <AuthStack />}
     </NavigationContainer>
   );
 }
