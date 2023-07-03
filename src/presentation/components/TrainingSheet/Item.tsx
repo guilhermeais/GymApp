@@ -1,7 +1,7 @@
 import {Text} from 'react-native';
 import {View} from 'react-native';
 import {TouchableOpacity} from 'react-native';
-import {GetTodayTrainingSheets} from '../../../domain/usecases/gym/get-today-training-sheets';
+import {GetTodayTrainingSheets} from '../../../domain/usecases/training-sheet/get-today-training-sheets';
 import PaymentStatus from '../PaymentStatus';
 
 type Props = GetTodayTrainingSheets.TrainingSheetM;

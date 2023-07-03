@@ -14,7 +14,7 @@ export default function StudentItem() {
             <View className="flex-row space-x-1">
               <Text className="text-gray-600">Em dia</Text>
               <View className="bg-green-500 rounded-full p-1">
-                <CheckIcon color="white" size={10} />
+                <CheckIcon color="white" size={12} />
               </View>
             </View>
           </View>

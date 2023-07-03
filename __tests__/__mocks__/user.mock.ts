@@ -10,3 +10,10 @@ export const correctUserTrainerAdminProps: UserProps = {
 export const correctUserTrainerAdmin: User = User.create(
   correctUserTrainerAdminProps,
 );
+
+export const correctUserStudentProps: UserProps = {
+  name: faker.string.uuid(),
+  roles: [UserRoles.STUDENT],
+};
+
+export const correctUserStudent: User = User.create(correctUserStudentProps);

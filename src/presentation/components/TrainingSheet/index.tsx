@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {GetTodayTrainingSheets} from '../../../domain/usecases/gym/get-today-training-sheets';
+import {GetTodayTrainingSheets} from '../../../domain/usecases/training-sheet/get-today-training-sheets';
 import TrainingSheetItem from './Item';
 import {UseCaseFactory} from '../../../main/factories/protocols/use-case.factory';
 import {ActivityIndicator} from 'react-native';

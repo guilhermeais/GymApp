@@ -2,12 +2,15 @@ import {PaymentStatusEnum} from '../../entities/enums/payment-status';
 import {GetTodayTrainingSheetsGateway} from '../../protocols/gateways';
 
 export class GetTodayTrainingSheets {
-  constructor(private readonly gymGateway: GetTodayTrainingSheetsGateway) {}
+  constructor(
+    private readonly trainingSheetGateway: GetTodayTrainingSheetsGateway,
+  ) {}
 
   async execute(
     _params: GetTodayTrainingSheets.Params,
   ): Promise<GetTodayTrainingSheets.Result> {
-    const todayTrainingSheets = await this.gymGateway.getTodayTrainingSheets();
+    const todayTrainingSheets =
+      await this.trainingSheetGateway.getTodayTrainingSheets();
 
     return todayTrainingSheets.map(trainingSheet => {
       return {

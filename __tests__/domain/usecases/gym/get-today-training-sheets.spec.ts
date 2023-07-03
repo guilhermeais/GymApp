@@ -1,6 +1,6 @@
 import {MockProxy, mock} from 'jest-mock-extended';
-import {GetTodayTrainingSheetsGateway} from '../../../../src/domain/protocols/gateways/gym-gateway';
-import {GetTodayTrainingSheets} from '../../../../src/domain/usecases/gym/get-today-training-sheets';
+import {GetTodayTrainingSheetsGateway} from '../../../../src/domain/protocols/gateways/training-sheet-gateway';
+import {GetTodayTrainingSheets} from '../../../../src/domain/usecases/training-sheet/get-today-training-sheets';
 import {correctTrainingSheet} from '../../../__mocks__/gym.mock';
 
 describe('GetTodayTrainingSheets', () => {
