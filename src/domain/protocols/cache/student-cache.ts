@@ -10,3 +10,17 @@ export namespace CreateStudentInCache {
   export type Request = Student;
   export type Response = void;
 }
+
+export interface ListStudentsInCache {
+  list(
+    request: ListStudentsInCache.Request,
+  ): Promise<ListStudentsInCache.Response>;
+}
+
+export namespace ListStudentsInCache {
+  export type Request = Partial<{
+    name?: string;
+    cpf?: string;
+  }>;
+  export type Response = Student[];
+}
