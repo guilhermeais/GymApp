@@ -1,6 +1,7 @@
 import {Logout, VerifyUserSession} from '../../../domain/usecases/auth';
 import {GetLoggedUser} from '../../../domain/usecases/auth/get-logged-user';
 import {Login} from '../../../domain/usecases/auth/login';
+import {CreateStudent, ListStudents} from '../../../domain/usecases/student';
 import {GetTodayTrainingSheets} from '../../../domain/usecases/training-sheet/get-today-training-sheets';
 
 export interface UseCaseFactory {
@@ -10,4 +11,7 @@ export interface UseCaseFactory {
 
   createGetTodayTrainingSheet(): GetTodayTrainingSheets;
   createLogout(): Logout;
+
+  createCreateStudent(): CreateStudent;
+  createListStudents(): ListStudents;
 }

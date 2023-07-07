@@ -1,16 +1,36 @@
-import {BaseEntity} from './base-entity';
-import {User} from './user';
+import {BaseEntity, BaseEntityProps} from './base-entity';
+import {User, UserProps} from './user';
 
 export class Student extends BaseEntity<StudentProps> {
-  private constructor(props: StudentProps) {
+  private readonly _user: User;
+  private constructor(props: BaseEntityProps<StudentProps>) {
     super(props);
+    this._user = User.create(props.user);
   }
 
   get id() {
     return this.props.id;
   }
 
-  static create(props: StudentProps) {
+  get user() {
+    return this._user;
+  }
+
+  get name() {
+    return this.props.name;
+  }
+
+  get cpf() {
+    return this.props.cpf;
+  }
+
+  toJSON(): StudentProps {
+    return {
+      ...this.props,
+    };
+  }
+
+  static create(props: BaseEntityProps<StudentProps>) {
     return new Student(props);
   }
 }
@@ -21,5 +41,5 @@ export type StudentProps = {
   phoneNumber?: string;
   cpf?: string;
   email?: string;
-  user?: User;
+  user?: UserProps;
 };

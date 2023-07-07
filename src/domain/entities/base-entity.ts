@@ -8,6 +8,6 @@ export class BaseEntity<T = any> {
   }
 }
 
-export type BaseEntityProps<T> = {
+export type BaseEntityProps<T> = T & {
   id?: string;
-} & T;
+};

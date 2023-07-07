@@ -4,5 +4,6 @@ const defaultConfig = require('./jest.config');
  */
 module.exports = {
   ...defaultConfig,
+  displayName: 'UNIT',
   testMatch: ['<rootDir>/__tests__/**/*.spec.ts'],
 };
