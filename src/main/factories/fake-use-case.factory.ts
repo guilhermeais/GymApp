@@ -8,15 +8,24 @@ import {AdaptRecoilUserState} from '../../infra/state/recoil/user-state.adapter'
 import {UseCaseFactory} from './protocols/use-case.factory';
 import {Logout, VerifyUserSession} from '../../domain/usecases/auth';
 import {CreateStudent, ListStudents} from '../../domain/usecases/student';
-import { FakeStudentsGateway } from '../../infra/gateways/students-gateway';
-import { NetInfoNetworkGateway } from '../../infra/gateways/network-gateway/netinfo-network-gateway';
+import {FakeStudentsGateway} from '../../infra/gateways/students-gateway';
+import {NetInfoNetworkGateway} from '../../infra/gateways/network-gateway/netinfo-network-gateway';
+import {AsyncStorageStudentCache} from '../../infra/cache/student-cache/async-storage-student-cache';
 
+const fakeStudentsGateway = new FakeStudentsGateway();
+const netInfoNetworkGateway = new NetInfoNetworkGateway();
+const asyncStorageStudentCache = new AsyncStorageStudentCache();
 export class FakeUseCaseFactory implements UseCaseFactory {
   createCreateStudent(): CreateStudent {
-    return new CreateStudent(new FakeStudentsGateway(), new NetInfoNetworkGateway(), new )
+    return new CreateStudent(
+      fakeStudentsGateway,
+      netInfoNetworkGateway,
+      asyncStorageStudentCache,
+    );
   }
+
   createListStudents(): ListStudents {
-    throw new Error('Method not implemented.');
+    return new ListStudents(fakeStudentsGateway, asyncStorageStudentCache);
   }
 
   createVerifyUserSession(): VerifyUserSession {

@@ -1,5 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useContext} from 'react';
 import {
   FlatList,
   RefreshControl,
@@ -9,12 +9,11 @@ import {
 } from 'react-native';
 import {GetTodayTrainingSheets} from '../../../domain/usecases/training-sheet/get-today-training-sheets';
 import TrainingSheetItem from './Item';
-import {UseCaseFactory} from '../../../main/factories/protocols/use-case.factory';
 import {ActivityIndicator} from 'react-native';
-type Props = {
-  useCaseFactory: UseCaseFactory;
-};
-export default function TrainingSheet({useCaseFactory: useCaseFactory}: Props) {
+import {DependenciesContext} from '../../../main/context/DependenciesContext';
+
+export default function TrainingSheet() {
+  const {useCaseFactory} = useContext(DependenciesContext);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const [todayTrainingSheets, setTodayTrainingSheets] =

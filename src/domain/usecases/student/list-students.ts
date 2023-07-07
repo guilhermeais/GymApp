@@ -7,7 +7,9 @@ export class ListStudents {
     private readonly studentsGateway: ListStudentsGateway,
     private readonly studentsCache: ListStudentsInCache,
   ) {}
-  async execute(params: ListStudents.Request): Promise<ListStudents.Response> {
+  async execute(
+    params: ListStudents.Request = {},
+  ): Promise<ListStudents.Response> {
     params.pageNumber =
       typeof params.pageNumber !== 'undefined' ? params.pageNumber : 0;
     params.pageSize = params.pageSize || 10;

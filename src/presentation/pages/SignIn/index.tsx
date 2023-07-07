@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -13,11 +13,10 @@ import {Login} from '../../../domain/usecases/auth/login';
 import {Email} from '../../../domain/entities/email';
 import {InputPassword} from '../../components/InputPassword';
 import {Password} from '../../../domain/entities/password';
-import {UseCaseFactory} from '../../../main/factories/protocols/use-case.factory';
-type Props = {
-  useCaseFactory: UseCaseFactory;
-};
-function SignIn({useCaseFactory}: Props): JSX.Element {
+import {DependenciesContext} from '../../../main/context/DependenciesContext';
+
+function SignIn(): JSX.Element {
+  const {useCaseFactory} = useContext(DependenciesContext);
   const login = useCaseFactory.createLogin();
   const [hasStartedEditingEmail, setHasStartedEditingEmail] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
@@ -88,7 +87,6 @@ function SignIn({useCaseFactory}: Props): JSX.Element {
                   onChangeText={handleEmailChange}
                   placeholder="Email"
                   label="Seu email"
-                  onSubmitEditing={() => console.log('sdjfklsdjfr')}
                   hasError={hasStartedEditingEmail && !loginData.email.isValid}
                   errorMessage="Email inválido"
                   autoCapitalize="none"

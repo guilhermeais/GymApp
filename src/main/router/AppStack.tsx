@@ -1,11 +1,14 @@
+import {useContext} from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {makeHomePage} from '../factories/pages';
 import {Header} from '../../presentation/components/Header/Header';
-import Student, {STUDENT_SCREEN_NAME} from '../../presentation/pages/Student';
+import StudentPage, {
+  STUDENT_SCREEN_NAME,
+} from '../../presentation/pages/Student';
 import DrawerMenu from '../../presentation/components/Header/DrawerMenu';
 import {UserIcon, HomeIcon} from 'react-native-heroicons/solid';
-import {UseCaseFactory} from '../factories/protocols/use-case.factory';
 import {HOME_SCREEN_NAME} from '../../presentation/pages/Home';
+import {DependenciesContext} from '../context/DependenciesContext';
 
 const Drawer = createDrawerNavigator();
 export type MenuItem = {
@@ -25,14 +28,14 @@ const menuItems: MenuItem[] = [
   {
     name: STUDENT_SCREEN_NAME,
     label: 'Alunos',
-    screen: Student,
+    screen: StudentPage,
     icon: UserIcon,
   },
 ];
-type Props = {
-  useCaseFactory: UseCaseFactory;
-};
-export default function AppStack({useCaseFactory}: Props) {
+
+export default function AppStack() {
+  const {useCaseFactory} = useContext(DependenciesContext);
+
   return (
     <Drawer.Navigator
       drawerContent={props => DrawerMenu({...props, useCaseFactory})}

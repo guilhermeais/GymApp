@@ -1,14 +1,10 @@
 /* eslint-disable react/react-in-jsx-scope */
 import {Text, SafeAreaView, View} from 'react-native';
 import TrainingSheet from '../../components/TrainingSheet';
-import {UseCaseFactory} from '../../../main/factories/protocols/use-case.factory';
 import MostAccessedPages from '../../components/MostAccessedPages';
 import Memo from '../../components/Memo';
-type Props = {
-  useCaseFactory: UseCaseFactory;
-};
 
-export default function Home({useCaseFactory}: Props) {
+export default function Home() {
   return (
     <SafeAreaView className="flex-1 py-4 bg-gray-100">
       <View className="px-4 flex-1">
@@ -26,7 +22,7 @@ export default function Home({useCaseFactory}: Props) {
           <Text className="text-xl font-bold">Fichas de Hoje</Text>
 
           <View className="mt-4">
-            <TrainingSheet useCaseFactory={useCaseFactory} />
+            <TrainingSheet />
           </View>
         </View>
       </View>

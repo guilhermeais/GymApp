@@ -1,13 +1,39 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {View, Text} from 'react-native';
-import React from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {TextInput} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import {PlusIcon} from 'react-native-heroicons/outline';
 import {MagnifyingGlassIcon} from 'react-native-heroicons/solid';
 import {FlatList} from 'react-native';
 import StudentItem from './Item';
+import {ListStudents} from '../../../domain/usecases/student';
+import {DependenciesContext} from '../../../main/context/DependenciesContext';
 
-export default function Student() {
+export default function StudentPage() {
+  const {useCaseFactory} = useContext(DependenciesContext);
+
+  const [isLoadingStudents, setIsLoadingStudents] = useState(false);
+  const [studentsResult, setStudentsResult] = useState<ListStudents.Response>();
+  const listStudents = useCaseFactory.createListStudents();
+
+  useEffect(() => {
+    async function getStudents() {
+      try {
+        setIsLoadingStudents(true);
+        const result = await listStudents.execute();
+        console.log(result);
+        setStudentsResult(result);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoadingStudents(false);
+      }
+    }
+
+    getStudents();
+  }, []);
+
   return (
     <View className="flex-1 p-4 px-2">
       <View className="items-center mb-4">

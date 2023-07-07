@@ -1,15 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {NavigationContainer} from '@react-navigation/native';
-import {useEffect, useState} from 'react';
-import {FakeUseCaseFactory} from '../factories/fake-use-case.factory';
+import {useEffect, useState, useContext} from 'react';
 import {SplashScreen} from '../../presentation/components/SplashScreen';
 import AuthStack from './AuthStack';
 import AppStack from './AppStack';
+import {DependenciesContext} from '../context/DependenciesContext';
 
-type Props = {
-  useCaseFactory: FakeUseCaseFactory;
-};
-export default function Router({useCaseFactory}: Props) {
+export default function Router() {
+  const {useCaseFactory} = useContext(DependenciesContext);
   const [isLogged, setIsLogged] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const verifyUserSession = useCaseFactory.createVerifyUserSession();
@@ -43,7 +41,7 @@ export default function Router({useCaseFactory}: Props) {
 
   return (
     <NavigationContainer>
-      {isLogged ? <AppStack useCaseFactory={useCaseFactory} /> : <AuthStack />}
+      {isLogged ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   );
 }
