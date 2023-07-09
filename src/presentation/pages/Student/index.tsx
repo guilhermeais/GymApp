@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {View, Text} from 'react-native';
+import {View, Text, ActivityIndicator} from 'react-native';
 import React, {useState, useEffect, useContext} from 'react';
 import {TextInput} from 'react-native';
 import {TouchableOpacity} from 'react-native';
@@ -57,8 +57,22 @@ export default function StudentPage() {
 
       <FlatList
         className="px-2 mt-2"
-        data={[1, 2]}
-        renderItem={() => <StudentItem />}
+        data={studentsResult?.students || []}
+        renderItem={({item: student}) => <StudentItem student={student} />}
+        ListEmptyComponent={
+          isLoadingStudents ? (
+            <View className="items-center">
+              <ActivityIndicator size="large" color="black" />
+              <Text className="text-2xl">Carregando...</Text>
+            </View>
+          ) : (
+            <View className="flex flex-col items-center justify-center p-4">
+              <Text className="text-xl font-bold mb-4 text-center">
+                Não há nenhum aluno cadastrado.
+              </Text>
+            </View>
+          )
+        }
       />
     </View>
   );

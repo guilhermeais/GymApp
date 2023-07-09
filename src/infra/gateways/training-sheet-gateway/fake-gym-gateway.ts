@@ -11,6 +11,7 @@ const defaultWorkouts = {
   wed: {name: 'Treino de Perna'},
   thu: {name: 'Treino de Braços'},
   fri: {name: 'Treino de Perna'},
+  sun: {name: 'Treino de Perna'},
 };
 
 async function sleep(interval: number) {

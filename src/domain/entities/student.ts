@@ -1,4 +1,5 @@
 import {BaseEntity, BaseEntityProps} from './base-entity';
+import {PaymentStatus} from './payment-status';
 import {User, UserProps} from './user';
 
 export class Student extends BaseEntity<StudentProps> {
@@ -24,6 +25,10 @@ export class Student extends BaseEntity<StudentProps> {
     return this.props.cpf;
   }
 
+  get paymentStatus() {
+    return this.props.paymentStatus;
+  }
+
   toJSON(): StudentProps {
     return {
       ...this.props,
@@ -42,4 +47,5 @@ export type StudentProps = {
   cpf?: string;
   email?: string;
   user?: UserProps;
+  paymentStatus: PaymentStatus;
 };

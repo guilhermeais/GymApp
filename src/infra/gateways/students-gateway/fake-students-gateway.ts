@@ -1,8 +1,11 @@
+import {faker} from '@faker-js/faker';
 import {Student} from '../../../domain/entities/student';
 import {
   CreateStudentGateway,
   ListStudentsGateway,
 } from '../../../domain/protocols/gateways';
+import {PaymentStatus} from '../../../domain/entities/payment-status';
+import {PaymentStatusEnum} from '../../../domain/entities/enums/payment-status';
 
 async function sleep(interval: number) {
   return new Promise(resolve => {
@@ -13,7 +16,17 @@ async function sleep(interval: number) {
 export class FakeStudentsGateway
   implements CreateStudentGateway, ListStudentsGateway
 {
-  private readonly students: Student[];
+  private readonly students: Student[] = [
+    Student.create({
+      name: faker.person.fullName(),
+      birthDate: faker.date.past(),
+      cpf: '44407433825',
+      email: faker.internet.email(),
+      paymentStatus: new PaymentStatus({
+        status: PaymentStatusEnum.PAID,
+      }),
+    }),
+  ];
 
   async list(
     request: Partial<{
@@ -32,7 +45,8 @@ export class FakeStudentsGateway
 
     const initialIndex = request.pageNumber * request.pageSize;
     for (let i = initialIndex; i < request.pageSize; i++) {
-      currentPageStudents.push(this.students[i]);
+      const student = this.students[i];
+      if (student) currentPageStudents.push(student);
     }
 
     return {
