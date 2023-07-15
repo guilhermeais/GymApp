@@ -3,26 +3,22 @@ import {PaymentStatus} from './payment-status';
 import {User, UserProps} from './user';
 
 export class Student extends BaseEntity<StudentProps> {
-  private readonly _user: User;
+  private readonly _userAccess: User;
   private constructor(props: BaseEntityProps<StudentProps>) {
     super(props);
-    this._user = User.create(props.user);
+    this._userAccess = props.userAccess ? User.create(props.userAccess) : null;
   }
 
   get id() {
     return this.props.id;
   }
 
-  get user() {
-    return this._user;
+  get userAccess() {
+    return this._userAccess;
   }
 
   get name() {
     return this.props.name;
-  }
-
-  get cpf() {
-    return this.props.cpf;
   }
 
   get paymentStatus() {
@@ -44,8 +40,7 @@ export type StudentProps = {
   name: string;
   birthDate: Date;
   phoneNumber?: string;
-  cpf?: string;
   email?: string;
-  user?: UserProps;
+  userAccess?: UserProps;
   paymentStatus: PaymentStatus;
 };

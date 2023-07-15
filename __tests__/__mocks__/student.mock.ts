@@ -17,7 +17,7 @@ export const correctStudentProps: StudentProps = {
   cpf: '39283956028',
   email: faker.internet.email(),
   phoneNumber: '+5516993299116',
-  user: correctUserStudentProps,
+  userAccess: correctUserStudentProps,
 };
 
 export const correctStudent = Student.create(correctStudentProps);

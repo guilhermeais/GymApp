@@ -32,7 +32,7 @@ export default function CreateStudent() {
           </View>
 
           <View>
-            <InputDate label="Data De nascimento" />
+            <InputDate label="Data de Nascimento" />
           </View>
         </View>
       </View>

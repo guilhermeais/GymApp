@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, TextInput, Platform} from 'react-native';
+import {View, Text, Platform} from 'react-native';
 import DateTimePicker, {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
@@ -12,13 +12,14 @@ type Props = {
 };
 
 export default function InputDate({label}: Props) {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [textDate, setTextDate] = useState('');
 
   useEffect(() => {
-    console.log('Selected Date Changed: ', selectedDate);
-    setTextDate(formatDate(selectedDate));
+    if (selectedDate) {
+      setTextDate(formatDate(selectedDate));
+    }
   }, [selectedDate]);
 
   const openDatePicker = () => {
@@ -122,9 +123,10 @@ export default function InputDate({label}: Props) {
 
       {showDatePicker && (
         <DateTimePicker
-          value={selectedDate}
+          value={selectedDate || new Date()}
           mode="date"
           display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+          accentColor="#22c55e"
           onChange={event => handleDateChange(event)}
         />
       )}
