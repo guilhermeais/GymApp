@@ -6,6 +6,7 @@
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "assetBundlePatterns": ["**/*"],
+    "backgroundColor": "#000",
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.guilhermeais.gymapp"

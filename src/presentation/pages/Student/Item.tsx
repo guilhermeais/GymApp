@@ -2,7 +2,7 @@ import {View, Text} from 'react-native';
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import {Student} from '../../../domain/entities/student';
-import {PaymentStatusPresenter} from '../../presenters/payment-status.presenter';
+import {PaymentStatusPresenter} from '../../presenters/PaymentStatusPresenter';
 
 type Props = {
   student: Student;

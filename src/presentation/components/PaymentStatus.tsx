@@ -1,6 +1,6 @@
 import {Text, View} from 'react-native';
 import {PaymentStatusEnum} from '../../domain/entities/enums/payment-status';
-import {PaymentStatusPresenter} from '../presenters/payment-status.presenter';
+import {PaymentStatusPresenter} from '../presenters/PaymentStatusPresenter';
 type Props = {
   status: PaymentStatusEnum;
   unpaidDays?: number;

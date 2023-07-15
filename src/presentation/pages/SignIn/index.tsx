@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
-import Input from '../../components/Input';
+import CustomTextInput from '../../components/CustomTextInput';
 import TextWithSeparator from '../../components/TextWithSeparator';
 import {Login} from '../../../domain/usecases/auth/login';
 import {Email} from '../../../domain/entities/email';
@@ -81,7 +81,7 @@ function SignIn(): JSX.Element {
           <View>
             <View className="grid gap-5 mb-6 md:grid-cols-2">
               <View>
-                <Input
+                <CustomTextInput
                   id="input-email"
                   value={loginData.email.value}
                   onChangeText={handleEmailChange}

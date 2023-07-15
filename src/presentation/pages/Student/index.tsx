@@ -9,20 +9,32 @@ import {FlatList} from 'react-native';
 import StudentItem from './Item';
 import {ListStudents} from '../../../domain/usecases/student';
 import {DependenciesContext} from '../../../main/context/DependenciesContext';
+import {useNavigation} from '@react-navigation/native';
+import {CREATE_STUDENT_SCREEN_NAME} from './CreateStudent';
 
 export default function StudentPage() {
   const {useCaseFactory} = useContext(DependenciesContext);
+  const listStudents = useCaseFactory.createListStudents();
+
+  const navigation = useNavigation();
 
   const [isLoadingStudents, setIsLoadingStudents] = useState(false);
   const [studentsResult, setStudentsResult] = useState<ListStudents.Response>();
-  const listStudents = useCaseFactory.createListStudents();
+  const [studentNameFilter, setStudentNameFilter] = useState('');
+
+  function handleStudentNameFilter(value: string) {
+    if (value !== studentNameFilter)
+      setTimeout(() => setStudentNameFilter(value), 450);
+  }
 
   useEffect(() => {
     async function getStudents() {
       try {
+        setStudentsResult(null);
         setIsLoadingStudents(true);
-        const result = await listStudents.execute();
-        console.log(result);
+        const result = await listStudents.execute({
+          name: studentNameFilter,
+        });
         setStudentsResult(result);
       } catch (error) {
         console.error(error);
@@ -32,7 +44,7 @@ export default function StudentPage() {
     }
 
     getStudents();
-  }, []);
+  }, [studentNameFilter]);
 
   return (
     <View className="flex-1 p-4 px-2">
@@ -46,10 +58,14 @@ export default function StudentPage() {
           <TextInput
             className="text-gray-900 dar:text-white flex-1"
             placeholder="Nome do aluno"
+            onChangeText={data => handleStudentNameFilter(data)}
           />
         </View>
         <View className="bg-green-500 rounded-full p-2 mx-1">
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate(CREATE_STUDENT_SCREEN_NAME as never)
+            }>
             <PlusIcon size={23} color="white" />
           </TouchableOpacity>
         </View>
@@ -68,7 +84,7 @@ export default function StudentPage() {
           ) : (
             <View className="flex flex-col items-center justify-center p-4">
               <Text className="text-xl font-bold mb-4 text-center">
-                Não há nenhum aluno cadastrado.
+                Nenhum aluno encontrado.
               </Text>
             </View>
           )
@@ -78,4 +94,5 @@ export default function StudentPage() {
   );
 }
 
+export const LIST_STUDENT_SCREEN_NAME = 'ListStudent';
 export const STUDENT_SCREEN_NAME = 'Student';
