@@ -1,3 +1,4 @@
+import {Email} from '../../entities/email';
 import {Student} from '../../entities/student';
 import {CreateStudentInCache} from '../../protocols/cache';
 import {
@@ -16,7 +17,9 @@ export class CreateStudent {
     request: CreateStudent.Request,
   ): Promise<CreateStudent.Response> {
     const userIsConnected = await this.networkGateway.isConnected();
-    const student = Student.create(request);
+    const student = Student.create({
+      ...request,
+    });
     if (!userIsConnected) {
       await this.studentCache.create(student);
     } else {
@@ -35,7 +38,7 @@ export namespace CreateStudent {
     birthDate: Date;
     phoneNumber?: string;
     cpf?: string;
-    email?: string;
+    email?: Email;
   };
 
   export type Response = {studentId: string};

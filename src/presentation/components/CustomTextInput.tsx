@@ -1,7 +1,8 @@
 import {View, Text, TextInput} from 'react-native';
 import React from 'react';
+import {MaskedTextInput, MaskedTextInputProps} from 'react-native-mask-text';
 
-export type InputProps = TextInput['props'] & {
+export type InputProps = Partial<MaskedTextInputProps> & {
   label: string;
   hasError?: boolean;
   errorMessage?: string;
@@ -9,13 +10,15 @@ export type InputProps = TextInput['props'] & {
 
 export default function CustomTextInput(props: InputProps) {
   const {label, hasError, errorMessage, ...rest} = props;
-
+  const TextComponent = props.mask ? MaskedTextInput : TextInput;
   return (
     <View>
       <Text className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
         {label}
       </Text>
-      <TextInput
+      <TextComponent
+        onChangeText={(() => {}) as any}
+        onTextInput={() => {}}
         {...rest}
         className={`bg-gray-50 border ${
           hasError

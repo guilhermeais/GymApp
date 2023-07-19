@@ -20,7 +20,6 @@ export interface ListStudentsInCache {
 export namespace ListStudentsInCache {
   export type Request = Partial<{
     name?: string;
-    cpf?: string;
   }>;
   export type Response = Student[];
 }

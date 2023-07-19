@@ -15,7 +15,6 @@ export class ListStudents {
     params.pageSize = params.pageSize || 10;
 
     const cachedStudents = await this.studentsCache.list({
-      cpf: params.cpf,
       name: params.name,
     });
 

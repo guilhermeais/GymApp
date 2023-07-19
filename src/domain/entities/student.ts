@@ -1,4 +1,5 @@
 import {BaseEntity, BaseEntityProps} from './base-entity';
+import {Email} from './email';
 import {PaymentStatus} from './payment-status';
 import {User, UserProps} from './user';
 
@@ -21,6 +22,10 @@ export class Student extends BaseEntity<StudentProps> {
     return this.props.name;
   }
 
+  get email() {
+    return this.props.email;
+  }
+
   get paymentStatus() {
     return this.props.paymentStatus;
   }
@@ -40,7 +45,7 @@ export type StudentProps = {
   name: string;
   birthDate: Date;
   phoneNumber?: string;
-  email?: string;
+  email?: Email;
   userAccess?: UserProps;
-  paymentStatus: PaymentStatus;
+  paymentStatus?: PaymentStatus;
 };

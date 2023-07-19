@@ -9,7 +9,7 @@ export class AsyncStorageStudentCache
   implements CreateStudentInCache, ListStudentsInCache
 {
   async list(
-    request: Partial<{name?: string; cpf?: string}> = {},
+    request: Partial<{name?: string}> = {},
   ): Promise<ListStudentsInCache.Response> {
     const cachedStudents = await AsyncStorage.getItem('students');
 
@@ -21,7 +21,7 @@ export class AsyncStorageStudentCache
 
     for (const studentProp of students) {
       const student = Student.create(studentProp);
-      if (!request.name && !request.cpf) {
+      if (!request.name) {
         mappedAndFilteredStudents.push(student);
         break;
       }
@@ -29,9 +29,7 @@ export class AsyncStorageStudentCache
         ? student.name.toLowerCase().includes(request.name.toLowerCase())
         : true;
 
-      const cpfMatch = request.cpf ? student.cpf === request.cpf : true;
-
-      if (cpfMatch && nameMatch) {
+      if (nameMatch) {
         mappedAndFilteredStudents.push(student);
         break;
       }

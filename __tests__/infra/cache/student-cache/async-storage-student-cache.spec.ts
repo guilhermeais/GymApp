@@ -37,49 +37,6 @@ describe('AsyncStorageStudentCache', () => {
       expect(result.length).toEqual(1);
       expect(result[0].id).toEqual(expectedStudent.id);
       expect(result[0].name).toEqual(expectedStudent.name);
-      expect(result[0].cpf).toEqual(expectedStudent.cpf);
-    });
-
-    it('should list all cached students with cpf filter', async () => {
-      const mockedStudents: StudentProps[] = [
-        {
-          ...correctStudentProps,
-          cpf: '44407433825',
-        },
-        {
-          ...correctStudentProps,
-          cpf: '16211571801',
-        },
-      ];
-      AsyncStorageMock.setItem('students', JSON.stringify(mockedStudents));
-
-      const result = await sut.list({
-        cpf: '44407433825',
-      });
-      const expectedStudent = Student.create(mockedStudents[0]);
-      expect(result.length).toEqual(1);
-      expect(result[0].id).toEqual(expectedStudent.id);
-      expect(result[0].name).toEqual(expectedStudent.name);
-      expect(result[0].cpf).toEqual(expectedStudent.cpf);
-    });
-
-    it('should list empty cached students with non existing cpf filter', async () => {
-      const mockedStudents: StudentProps[] = [
-        {
-          ...correctStudentProps,
-          cpf: '44407433825',
-        },
-        {
-          ...correctStudentProps,
-          cpf: '16211571801',
-        },
-      ];
-      AsyncStorageMock.setItem('students', JSON.stringify(mockedStudents));
-
-      const result = await sut.list({
-        cpf: '123213',
-      });
-      expect(result.length).toEqual(0);
     });
 
     it('should list all cached students with exactly name filter', async () => {
@@ -102,7 +59,6 @@ describe('AsyncStorageStudentCache', () => {
       expect(result.length).toEqual(1);
       expect(result[0].id).toEqual(expectedStudent.id);
       expect(result[0].name).toEqual(expectedStudent.name);
-      expect(result[0].cpf).toEqual(expectedStudent.cpf);
     });
 
     it('should list all cached students with partial name filter', async () => {
@@ -125,7 +81,6 @@ describe('AsyncStorageStudentCache', () => {
       expect(result.length).toEqual(1);
       expect(result[0].id).toEqual(expectedStudent.id);
       expect(result[0].name).toEqual(expectedStudent.name);
-      expect(result[0].cpf).toEqual(expectedStudent.cpf);
     });
   });
 

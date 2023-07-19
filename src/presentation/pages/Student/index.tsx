@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {View, Text, ActivityIndicator} from 'react-native';
+import {View, Text, ActivityIndicator, RefreshControl} from 'react-native';
 import React, {useState, useEffect, useContext} from 'react';
 import {TextInput} from 'react-native';
 import {TouchableOpacity} from 'react-native';
@@ -10,13 +10,13 @@ import StudentItem from './Item';
 import {ListStudents} from '../../../domain/usecases/student';
 import {DependenciesContext} from '../../../main/context/DependenciesContext';
 import {useNavigation} from '@react-navigation/native';
-import {CREATE_STUDENT_SCREEN_NAME} from './CreateStudent';
+import {CREATE_STUDENT_SCREEN_NAME} from './CreateStudentScreen';
 
 export default function StudentPage() {
   const {useCaseFactory} = useContext(DependenciesContext);
   const listStudents = useCaseFactory.createListStudents();
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   const [isLoadingStudents, setIsLoadingStudents] = useState(false);
   const [studentsResult, setStudentsResult] = useState<ListStudents.Response>();
@@ -27,22 +27,30 @@ export default function StudentPage() {
       setTimeout(() => setStudentNameFilter(value), 450);
   }
 
-  useEffect(() => {
-    async function getStudents() {
-      try {
-        setStudentsResult(null);
-        setIsLoadingStudents(true);
-        const result = await listStudents.execute({
-          name: studentNameFilter,
-        });
-        setStudentsResult(result);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsLoadingStudents(false);
-      }
+  async function getStudents() {
+    try {
+      setStudentsResult(null);
+      setIsLoadingStudents(true);
+      const result = await listStudents.execute({
+        name: studentNameFilter,
+      });
+      setStudentsResult(result);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoadingStudents(false);
     }
+  }
 
+  function onRefresh() {
+    getStudents();
+  }
+
+  function onCreate() {
+    getStudents();
+  }
+
+  useEffect(() => {
     getStudents();
   }, [studentNameFilter]);
 
@@ -64,7 +72,9 @@ export default function StudentPage() {
         <View className="bg-green-500 rounded-full p-2 mx-1">
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate(CREATE_STUDENT_SCREEN_NAME as never)
+              navigation.navigate(CREATE_STUDENT_SCREEN_NAME, {
+                onCreate,
+              })
             }>
             <PlusIcon size={23} color="white" />
           </TouchableOpacity>
@@ -72,6 +82,13 @@ export default function StudentPage() {
       </View>
 
       <FlatList
+        refreshControl={
+          <RefreshControl
+            refreshing={false}
+            onRefresh={onRefresh}
+            colors={['green', 'black']}
+          />
+        }
         className="px-2 mt-2"
         data={studentsResult?.students || []}
         renderItem={({item: student}) => <StudentItem student={student} />}

@@ -11,9 +11,9 @@ import {UserIcon, HomeIcon} from 'react-native-heroicons/solid';
 import {HOME_SCREEN_NAME} from '../../presentation/pages/Home';
 import {DependenciesContext} from '../context/DependenciesContext';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import CreateStudent, {
+import CreateStudentScreen, {
   CREATE_STUDENT_SCREEN_NAME,
-} from '../../presentation/pages/Student/CreateStudent';
+} from '../../presentation/pages/Student/CreateStudentScreen';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -32,7 +32,7 @@ function StudentStack() {
       <Stack.Group screenOptions={{headerShown: false}}>
         <Stack.Screen
           name={CREATE_STUDENT_SCREEN_NAME}
-          component={CreateStudent}
+          component={CreateStudentScreen}
         />
       </Stack.Group>
     </Stack.Navigator>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
 import {View, Text, Platform} from 'react-native';
 import DateTimePicker, {
@@ -9,9 +10,10 @@ import {MaskedTextInput} from 'react-native-mask-text';
 
 type Props = {
   label: string;
+  onDateChange?: (Date) => void;
 };
 
-export default function InputDate({label}: Props) {
+export default function InputDate({label, onDateChange}: Props) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [textDate, setTextDate] = useState('');
@@ -19,6 +21,7 @@ export default function InputDate({label}: Props) {
   useEffect(() => {
     if (selectedDate) {
       setTextDate(formatDate(selectedDate));
+      onDateChange(selectedDate);
     }
   }, [selectedDate]);
 
@@ -116,6 +119,10 @@ export default function InputDate({label}: Props) {
           className={inputStyles}
           value={textDate}
           onChangeText={handleChangeText}
+          type="date"
+          options={{
+            dateFormat: 'DD/MM/YYYY',
+          }}
           mask="99/99/9999"
           placeholder="DD/MM/YYYY"
         />
